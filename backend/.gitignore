@@ -1,0 +1,37 @@
+# Virtual environment
+venv/
+venv*/
+.Python
+bin/
+include/
+lib/
+lib64/
+pip-selfcheck.json
+__pycache__/
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+*.pyc
+
+# Environment variables
+.env
+env.py
+
+# Database
+*.db
+*.sqlite3
+*.sqlite
+
+# Compiled Python files
+*.pyc
+
+# Dependency directories
+node_modules/
+/dist/
+
+.DS_Store
+
+# Alembic logs
+migrations/versions/*.log
