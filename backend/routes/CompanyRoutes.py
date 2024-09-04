@@ -1,6 +1,5 @@
 from app import db, app
 from models.CompanyModel import Company
-from models.RejectedModel import Rejected
 from flask import request, jsonify
 from urllib.parse import urlparse
 from datetime import datetime
@@ -49,6 +48,10 @@ def add_company():
         for field in required_fields:
             if field not in data:
                 return jsonify({'error': f'{field} is required'}), 400
+            
+        if not re.match(r'\d{1,2}/\d{1,2}/\d{4}', data['applyDate']):
+            return jsonify({'error': 'Invalid date format. Please use MM/DD/YYYY.'}), 400
+        
         company = Company(
             name=data['name'],
             role=data['role'],
@@ -58,6 +61,10 @@ def add_company():
             apply_date=data['applyDate'],
             status=data['status']
         )
+        if company.status == 'Submitted':
+            company.updated_at = datetime.strptime(company.apply_date, '%m/%d/%Y')
+        else:
+            company.updated_at = datetime.utcnow()
         db.session.add(company)
         db.session.commit()
         return jsonify({'message': 'Company added :)'})
@@ -80,8 +87,10 @@ def update_company(id):
         company.city = data.get('city', company.city)
         company.link = data.get('link', company.link)
         company.status = data.get('status', company.status)
-        company.updated_at = data.get('updatedAt', company.updated_at)
-
+        if company.status == 'Submitted':
+            company.updated_at = datetime.strptime(company.apply_date, '%m/%d/%Y')
+        else:
+            company.updated_at = datetime.utcnow()
         db.session.commit()
         return jsonify({'message': 'Company updated :)'})
     except Exception as e:
@@ -95,60 +104,6 @@ def update_company(id):
 def delete_company(id):
     try:
         company = Company.query.get(id)
-        if not company:
-            return jsonify({'message': 'Company not found :('}), 404
-        db.session.delete(company)
-        db.session.commit()
-        return jsonify({'message': 'Company deleted :)'})
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({'message': 'Failed to delete this company, please try again :('}), 500
-
-
-# MARK: Rejected Companies
-
-# DESC: Put a company to rejected directory
-# PATH: /api/companies/reject/<int:id>
-# Private
-@app.route('/api/companies/reject/<int:id>', methods=['POST'])
-def reject_company(id):
-    try:
-        company = Company.query.get(id)
-        if not company:
-            return jsonify({'message': 'Company not found :('}), 404
-        reject_company = Rejected(
-            name=company.name,
-            role=company.role,
-            city=company.city,
-            link=company.link,
-            img_url=company.img_url,
-            apply_date=company.apply_date,
-            rejected_at=datetime.utcnow()
-        )
-        db.session.add(reject_company)
-        db.session.delete(company)
-        db.session.commit()
-        return jsonify({'message': 'Status Updated'})
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({'message': f'Failed to move this company, please try again :(, Error: {str(e)}'}), 500
-
-# DESC: Get all rejected companies
-# PATH: /api/companies/reject
-# Private
-@app.route('/api/companies/reject', methods=['GET'])
-def get_rejected_companies():
-    rejected_companies = Rejected.query.all()
-    res = [company.to_json() for company in rejected_companies]
-    return jsonify(res)
-
-# DESC: Delete a rejected company
-# PATH: /api/companies/reject/<int:id>
-# Private
-@app.route('/api/companies/reject/<int:id>', methods=['DELETE'])
-def delete_rejected_company(id):
-    try:
-        company = Rejected.query.get(id)
         if not company:
             return jsonify({'message': 'Company not found :('}), 404
         db.session.delete(company)

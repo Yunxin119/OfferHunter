@@ -1,4 +1,5 @@
 from app import db
+from datetime import datetime
 
 class Company(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -9,7 +10,7 @@ class Company(db.Model):
     img_url = db.Column(db.String(120), nullable=True)
     apply_date = db.Column(db.String(80), nullable=False)
     status = db.Column(db.String(80), nullable=False)
-    updated_at = db.Column(db.String(80), nullable=True)
+    updated_at = db.Column(db.DateTime, nullable=True)
 
     def to_json(self):
         return {
@@ -21,5 +22,5 @@ class Company(db.Model):
             'imgUrl': self.img_url,
             'applyDate': self.apply_date,
             'status': self.status,
-            'updatedAt': self.updated_at
+            'updatedAt': self.updated_at.strftime('%m/%d/%Y')if self.updated_at else None
         }
