@@ -39,9 +39,8 @@ def add_company():
     try:
         data = request.json
         # Get the domain from the link to get the logo
-        parsed_url = urlparse(data['link'])
+        parsed_url = urlparse(data['imageDomain'])
         domain = parsed_url.netloc or parsed_url.path
-        domain = re.sub(r'^www\.', '', domain)
         img_url = f"https://logo.clearbit.com/{domain}"
         #  | f"https://placehold.jp/aaaaaa/ffffff/150x150.png?text=No%20Image" for placeholder use later
         required_fields = ['name', 'role', 'city', 'link', 'applyDate', 'status']
@@ -59,7 +58,8 @@ def add_company():
             link=data['link'],
             img_url=img_url,
             apply_date=data['applyDate'],
-            status=data['status']
+            status=data['status'],
+            image_domain=data['imageDomain']
         )
         if company.status == 'Submitted':
             company.updated_at = datetime.strptime(company.apply_date, '%m/%d/%Y')
@@ -87,12 +87,14 @@ def update_company(id):
         company.city = data.get('city', company.city)
         company.link = data.get('link', company.link)
         company.status = data.get('status', company.status)
+        company.image_domain = data.get('imageDomain', company.image_domain)
+        company.img_url = f"https://logo.clearbit.com/{company.image_domain}"
         if company.status == 'Submitted':
             company.updated_at = datetime.strptime(company.apply_date, '%m/%d/%Y')
         else:
             company.updated_at = datetime.utcnow()
         db.session.commit()
-        return jsonify({'message': 'Company updated :)'})
+        return jsonify(company.to_json()), 200
     except Exception as e:
         db.session.rollback()
         return jsonify({'message': 'Failed to update this company, please try again :('}), 500

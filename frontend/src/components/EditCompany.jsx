@@ -15,12 +15,13 @@ const EditCompany = ({ company, setCompanies }) => {
 
   const [city, setCity] = useState(company.city || '');
   const [link, setLink] = useState(company.link || '');
+  const [imageDomain, setImageDomain] = useState(company.imageDomain || '');
   const { loading, updateCompany } = useUpdateCompany();
 
   const handleEdit = async (e) => {
       e.preventDefault();
 
-      const updatedData = { name, role, status, applyDate, city, link };
+      const updatedData = { name, role, status, applyDate, city, link, imageDomain };
 
       try {
           const updatedCompany = await updateCompany(company.id, updatedData);
@@ -63,7 +64,7 @@ const EditCompany = ({ company, setCompanies }) => {
                 />
               </div>
 
-              <div className="form-control mt-4">
+              <div className="form-control mt-3">
                 <label className="label">
                   <span className="label-text">Role</span>
                 </label>
@@ -75,7 +76,7 @@ const EditCompany = ({ company, setCompanies }) => {
                 />
               </div>
 
-              <div className="form-control mt-4">
+              <div className="form-control mt-3">
                 <label className="label">
                   <span className="label-text">Status</span>
                 </label>
@@ -93,7 +94,7 @@ const EditCompany = ({ company, setCompanies }) => {
                 </select>
               </div>
 
-              <div className="form-control mt-4">
+              <div className="form-control mt-3">
                 <label className="label">
                   <span className="label-text">Apply Date</span>
                 </label>
@@ -105,7 +106,7 @@ const EditCompany = ({ company, setCompanies }) => {
                 />
               </div>
 
-              <div className="form-control mt-4">
+              <div className="form-control mt-3">
                 <label className="label">
                   <span className="label-text">City</span>
                 </label>
@@ -117,7 +118,7 @@ const EditCompany = ({ company, setCompanies }) => {
                 />
               </div>
 
-              <div className="form-control mt-4">
+              <div className="form-control mt-3">
                 <label className="label">
                   <span className="label-text">Link</span>
                 </label>
@@ -126,6 +127,17 @@ const EditCompany = ({ company, setCompanies }) => {
                   className="input input-bordered w-full"
                   value={link}
                   onChange={(e) => setLink(e.target.value)}
+                />
+              </div>
+              <div className="form-control mt-3">
+                <label className="label">
+                  <span className="label-text">Domain</span>
+                </label>
+                <input
+                  type="text"
+                  className="input input-bordered w-full"
+                  value={imageDomain}
+                  onChange={(e) => setImageDomain(e.target.value)}
                 />
               </div>
 

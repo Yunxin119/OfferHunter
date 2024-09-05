@@ -5,7 +5,7 @@ const useAddCompany = () => {
     const [loading, setLoading] = useState(false);
     const [company, setCompany] = useState([]);
 
-const addCompany = async ({ name, role, status, applyDate, city, link }) => {
+const addCompany = async ({ name, role, status, applyDate, city, link, imageDomain }) => {
   if (!name || !role || !status || !applyDate || !city || !link) {
     toast.error("Please fill all the fields");
     return;
@@ -18,7 +18,7 @@ const addCompany = async ({ name, role, status, applyDate, city, link }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, role, status, applyDate, city, link }),
+      body: JSON.stringify({ name, role, status, applyDate, city, link, imageDomain }),
     });
 
     const data = await response.json();

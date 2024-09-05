@@ -11,6 +11,7 @@ const AddCompany = ({ setCompanies }) => {
   const [applyDate, setApplyDate] = useState('');
   const [city, setCity] = useState('');
   const [link, setLink] = useState('');
+  const [imageDomain, setImageDomain] = useState('');
   const { loading, addCompany } =useAddCompany();
 
   const handleAdd = async (e) => {
@@ -28,6 +29,7 @@ const AddCompany = ({ setCompanies }) => {
         applyDate: formattedDate,
         city,
         link,
+        imageDomain,
       });
   
       if (addedCompany) {
@@ -68,7 +70,7 @@ const AddCompany = ({ setCompanies }) => {
                 />
               </div>
 
-              <div className="form-control mt-4">
+              <div className="form-control mt-2">
                 <label className="label">
                   <span className="label-text">Role</span>
                 </label>
@@ -80,7 +82,7 @@ const AddCompany = ({ setCompanies }) => {
                 />
               </div>
 
-              <div className="form-control mt-4">
+              <div className="form-control mt-2">
                 <label className="label">
                   <span className="label-text">Status</span>
                 </label>
@@ -89,7 +91,7 @@ const AddCompany = ({ setCompanies }) => {
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
                     >
-                    <option value="">Select Status</option>  {/* 提供一个空值，提示用户必须选择 */}
+                    <option value="">Select Status</option>  
                     <option value="Submitted">Submitted</option>
                     <option value="OA">OA</option>
                     <option value="Interview1">Interview Round 1</option>
@@ -101,7 +103,7 @@ const AddCompany = ({ setCompanies }) => {
 
               </div>
 
-              <div className="form-control mt-4">
+              <div className="form-control mt-2">
                 <label className="label">
                   <span className="label-text">Apply Date</span>
                 </label>
@@ -113,7 +115,7 @@ const AddCompany = ({ setCompanies }) => {
                 />
               </div>
 
-              <div className="form-control mt-4">
+              <div className="form-control mt-2">
                 <label className="label">
                   <span className="label-text">City</span>
                 </label>
@@ -125,7 +127,7 @@ const AddCompany = ({ setCompanies }) => {
                 />
               </div>
 
-              <div className="form-control mt-4">
+              <div className="form-control mt-2">
                 <label className="label">
                   <span className="label-text">Link</span>
                 </label>
@@ -134,6 +136,18 @@ const AddCompany = ({ setCompanies }) => {
                   className="input input-bordered w-full"
                   value={link}
                   onChange={(e) => setLink(e.target.value)}
+                />
+              </div>
+
+              <div className="form-control mt-2">
+                <label className="label">
+                  <span className="label-text">Domain</span>
+                </label>
+                <input
+                  type="text"
+                  className="input input-bordered w-full"
+                  value={imageDomain}
+                  onChange={(e) => setImageDomain(e.target.value)}
                 />
               </div>
 
