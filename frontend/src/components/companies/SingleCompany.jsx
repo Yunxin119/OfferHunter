@@ -2,17 +2,45 @@ import React from 'react'
 import { useState } from 'react';
 import  useUpdateCompany from '../../hooks/useUpdateCompany';
 import EditCompany from '../EditCompany';
+import { IoHandLeft } from 'react-icons/io5';
+import { toast } from 'react-toastify';
 
 const SingleCompany = ({company, setCompanies}) => {
+    const [loading ,setLoading] = useState(false);
 
     const isSubmitted = company.status === 'Submitted';
     const isRejected = company.status === 'Rejected';
     const isInProgress = company.status !== 'Submitted' && company.status !== 'Rejected';
 
     const statusColor = isSubmitted ? 'bg-green-50 text-green-700' : isRejected ? 'bg-red-50 text-red-700' : 'bg-yellow-50 text-yellow-700';
+    const handleDelete = async() => {
+        if (loading) return;
+        setLoading(true);
+        try {
+            const response = await fetch(`http://127.0.0.1:5000/api/companies/${company.id}`, {
+                method: 'DELETE',
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                toast.error(data.error || 'Error deleting company');
+            }
+            setCompanies((prevCompanies) => prevCompanies.filter((c) => c.id !== company.id));
+        } catch (error) {
+            console.error('Error deleting company:', error);
+            toast.error('Error deleting company');
+        } finally {
+            setLoading(false);
+        }
+    }
   return (
     <>
-    <div className='flex flex-col h-48 bg-base-200 bg-opacity-40 hover:bg-opacity-60 shadow-sm rounded-lg p-3'>
+    <div className='relative flex flex-col h-48 bg-base-200 bg-opacity-40 hover:bg-opacity-60 shadow-sm rounded-lg p-3'>
+        <button 
+        className='btn btn-sm btn-ghost absolute top-2 right-2 justify-end text-gray-500'
+        onClick={handleDelete}
+        >
+            x
+        </button>
         <div className="flex w-full items-center justify-between space-x-6 p-4">
             <img
                 alt={`${company.name} logo`}

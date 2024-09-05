@@ -67,7 +67,7 @@ def add_company():
             company.updated_at = datetime.utcnow()
         db.session.add(company)
         db.session.commit()
-        return jsonify({'message': 'Company added :)'})
+        return jsonify(company.to_json()), 201
     except Exception as e:
         db.session.rollback()  # Rollback the session in case of an error
         return jsonify({'message': f'Failed to add this company, please try again :(, Error: {str(e)}'}), 500

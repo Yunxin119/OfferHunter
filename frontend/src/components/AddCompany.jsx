@@ -20,8 +20,6 @@ const AddCompany = ({ setCompanies }) => {
   
     const formattedDate = new Date(applyDate).toLocaleDateString('en-US');
   
-    console.log("Submitting company with data:", { name, role, status, applyDate: formattedDate, city, link });
-  
     try {
       const addedCompany = await addCompany({
         name,

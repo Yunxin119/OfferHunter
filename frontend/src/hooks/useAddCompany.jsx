@@ -23,7 +23,6 @@ const addCompany = async ({ name, role, status, applyDate, city, link }) => {
 
     const data = await response.json();
     
-    // 捕获服务器响应的错误
     if (!response.ok) {
       console.error("Error response from server:", data);
       toast.error(data.error || "Error adding company");

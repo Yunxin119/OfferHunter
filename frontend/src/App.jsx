@@ -9,7 +9,7 @@ function App() {
   return (
     <>
     <Navbar setCompanies={setCompanies}/>
-    <CompanyGrid setCompanies={setCompanies}/>
+    <CompanyGrid companies={companies} setCompanies={setCompanies}/>
     <ToastContainer />
     </>
   )
