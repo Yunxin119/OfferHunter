@@ -19,7 +19,8 @@ const AddCompany = ({ setCompanies }) => {
   
     if (loading) return;
   
-    const formattedDate = new Date(applyDate).toLocaleDateString('en-US');
+    const [year, month, day] = applyDate.split('-');
+    const formattedDate = `${month}/${day}/${year}`;
   
     try {
       const addedCompany = await addCompany({
@@ -41,6 +42,7 @@ const AddCompany = ({ setCompanies }) => {
       toast.error('Error adding company');
     }
   };
+
 
   return (
     <div>

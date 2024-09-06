@@ -51,6 +51,7 @@ def add_company():
         if not re.match(r'\d{1,2}/\d{1,2}/\d{4}', data['applyDate']):
             return jsonify({'error': 'Invalid date format. Please use MM/DD/YYYY.'}), 400
         
+
         company = Company(
             name=data['name'],
             role=data['role'],

@@ -4,6 +4,7 @@ import ThemeToggle from './ThemeToggle'
 import { IoMdLogOut, IoMdSearch } from "react-icons/io";
 import { IoMoon, IoSunny, IoMenu } from "react-icons/io5";
 import AddCompany from './AddCompany';
+import Search from './Search';
 
 const Navbar = ({setCompanies}) => {
   return (
@@ -29,9 +30,6 @@ const Navbar = ({setCompanies}) => {
   <div className="navbar-end">
 
     <AddCompany setCompanies={setCompanies}/>
-    <button className="btn btn-ghost btn-circle">
-      <IoMdSearch className='w-6 h-6' />
-    </button>
     <button className="btn btn-ghost btn-circle">
       <IoMdLogOut className='w-6 h-6' />
     </button>
