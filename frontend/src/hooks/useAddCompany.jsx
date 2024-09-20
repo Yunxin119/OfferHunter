@@ -13,7 +13,7 @@ const addCompany = async ({ name, role, status, applyDate, city, link, imageDoma
 
   setLoading(true);
   try {
-    const response = await fetch("http://127.0.0.1:5000/api/companies", {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/companies`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

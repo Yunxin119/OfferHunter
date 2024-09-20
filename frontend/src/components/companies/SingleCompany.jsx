@@ -19,7 +19,7 @@ const SingleCompany = ({company, setCompanies}) => {
         if (!confirm) return;
         setLoading(true);
         try {
-            const response = await fetch(`http://127.0.0.1:5000/api/companies/${company.id}`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/companies/${company.id}`, {
                 method: 'DELETE',
             });
             const data = await response.json();
