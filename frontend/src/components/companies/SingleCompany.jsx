@@ -15,6 +15,8 @@ const SingleCompany = ({company, setCompanies}) => {
     const statusColor = isSubmitted ? 'bg-green-50 text-green-700' : isRejected ? 'bg-red-50 text-red-700' : 'bg-yellow-50 text-yellow-700';
     const handleDelete = async() => {
         if (loading) return;
+        const confirm = window.confirm('Are you sure you want to delete this company? This action cannot be undone.');
+        if (!confirm) return;
         setLoading(true);
         try {
             const response = await fetch(`http://127.0.0.1:5000/api/companies/${company.id}`, {
@@ -32,6 +34,7 @@ const SingleCompany = ({company, setCompanies}) => {
             setLoading(false);
         }
     }
+
   return (
     <>
     <div className='relative flex flex-col h-48 bg-base-200 bg-opacity-40 hover:bg-opacity-60 shadow-sm rounded-lg p-3'>
