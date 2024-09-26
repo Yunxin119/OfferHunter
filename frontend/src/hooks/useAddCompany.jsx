@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { useAuth } from "./AuthContext";
 
 const useAddCompany = () => {
     const [loading, setLoading] = useState(false);
     const [company, setCompany] = useState([]);
+    const { authUser } = useAuth();
 
 const addCompany = async ({ name, role, status, applyDate, city, link, imageDomain }) => {
   if (!name || !role || !status || !applyDate || !city || !link) {
@@ -17,6 +19,7 @@ const addCompany = async ({ name, role, status, applyDate, city, link, imageDoma
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${authUser.token}`,
       },
       body: JSON.stringify({ name, role, status, applyDate, city, link, imageDomain }),
     });

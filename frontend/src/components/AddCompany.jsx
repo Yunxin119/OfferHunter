@@ -48,7 +48,7 @@ const AddCompany = ({ setCompanies }) => {
     <div>
       {/* Add Button */}
       <button
-        className="btn btn-sm btn-primary"
+        className="btn btn-sm bg-gray-300 bg-opacity-50 text-gray-600 m-3"
         onClick={() => setIsOpen(true)}
       >
         New Application
@@ -56,13 +56,13 @@ const AddCompany = ({ setCompanies }) => {
 
       {/* Modal */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
-          <div className="bg-base-300 bg-opacity-80 w-full max-w-lg p-6 rounded-lg shadow-lg">
-            <h2 className="text-2xl font-bold mb-4">Add Company</h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
+          <div className="edit">
+            <h2 className="text-2xl font-bold mb-[2vh] prime-text">Add Company</h2>
             <form onSubmit={handleAdd}>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Name</span>
+                  <span className="prime-text">Name</span>
                 </label>
                 <input
                   type="text"
@@ -72,9 +72,9 @@ const AddCompany = ({ setCompanies }) => {
                 />
               </div>
 
-              <div className="form-control mt-2">
+              <div className="form-control mt-1">
                 <label className="label">
-                  <span className="label-text">Role</span>
+                  <span className="prime-text">Role</span>
                 </label>
                 <input
                   type="text"
@@ -83,10 +83,10 @@ const AddCompany = ({ setCompanies }) => {
                   onChange={(e) => setRole(e.target.value)}
                 />
               </div>
-
-              <div className="form-control mt-2">
+              <div className='flex flex-row w-full items-center justify-between'>
+              <div className="form-control mt-1 w-full mr-[0.5vw]">
                 <label className="label">
-                  <span className="label-text">Status</span>
+                  <span className="prime-text">Status</span>
                 </label>
                 <select
                     className="select select-bordered w-full"
@@ -105,9 +105,9 @@ const AddCompany = ({ setCompanies }) => {
 
               </div>
 
-              <div className="form-control mt-2">
+              <div className="form-control mt-1 w-full">
                 <label className="label">
-                  <span className="label-text">Apply Date</span>
+                  <span className="prime-text">Apply Date</span>
                 </label>
                 <input
                   type="date"
@@ -117,9 +117,11 @@ const AddCompany = ({ setCompanies }) => {
                 />
               </div>
 
-              <div className="form-control mt-2">
+              </div>
+
+              <div className="form-control mt-1">
                 <label className="label">
-                  <span className="label-text">City</span>
+                  <span className="prime-text">City</span>
                 </label>
                 <input
                   type="text"
@@ -129,9 +131,9 @@ const AddCompany = ({ setCompanies }) => {
                 />
               </div>
 
-              <div className="form-control mt-2">
+              <div className="form-control mt-1">
                 <label className="label">
-                  <span className="label-text">Link</span>
+                  <span className="prime-text">Link</span>
                 </label>
                 <input
                   type="text"
@@ -141,9 +143,9 @@ const AddCompany = ({ setCompanies }) => {
                 />
               </div>
 
-              <div className="form-control mt-2">
+              <div className="form-control mt-1">
                 <label className="label">
-                  <span className="label-text">Domain</span>
+                  <span className="prime-text">Domain</span>
                 </label>
                 <input
                   type="text"

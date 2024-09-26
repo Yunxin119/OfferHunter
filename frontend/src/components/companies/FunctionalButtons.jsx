@@ -39,7 +39,7 @@ const FunctionalButtons = ({isReverse, setIsReverse, isOpen, setIsOpen, searchIn
             </button>
             </div>
             <div className='flex flex-row items-center gap-2'>
-                <label>Reverse</label>
+                <label className='text-gray-200'>Reverse</label>
                 <input type="checkbox" className="toggle toggle-sm" onChange={handleReverse} />
             </div>
         </div>
@@ -47,14 +47,14 @@ const FunctionalButtons = ({isReverse, setIsReverse, isOpen, setIsOpen, searchIn
 
 
     {isOpen && (
-        <div className="fixed inset-0 z-50 flex justify-center bg-black bg-opacity-40"
+        <div className="fixed inset-0 z-50 flex justify-center bg-black bg-opacity-50"
         onClick={handleClick}>
         
             <div className="relative flex flex-row top-[20%]" onClick={handleSearchClick}>
-                <label className="input input-bordered w-60 md:w-64 lg:w-72 xl:w-80 h-12 items-center justify-center gap-2">
-                  <input type="text" className="grow mt-2.5" placeholder="Search" value={searchInput} onChange={(e) => setSearchInput(e.target.value)}/>
+                <label className="input bg-gray-100 bg-opacity-50 input-bordered w-60 md:w-64 lg:w-72 xl:w-80 h-12 items-center justify-center gap-2">
+                  <input type="text" className="grow mt-2.5 text-gray-50 placeholder-gray-200" placeholder="Search" value={searchInput} onChange={(e) => setSearchInput(e.target.value)}/>
                 </label>
-                <button className="btn btn-primary text-white mx-2" onClick={handleSubmit}>
+                <button className="btn btn-ghost mx-2" onClick={handleSubmit}>
                   Done
                 </button>
               </div>

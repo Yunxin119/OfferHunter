@@ -3,12 +3,12 @@ import React from 'react'
 const Filter = ({statusFilter, setStatusFilter, filteredCompanies}) => {
   return (
     <div className="mb-4">
-    <label htmlFor="statusFilter" className="mr-2">Filter by Status:</label>
+    <label htmlFor="statusFilter" className="mr-2 text-gray-200">Filter by Status:</label>
     <select
       id="statusFilter"
       value={statusFilter}
       onChange={(e) => setStatusFilter(e.target.value)}
-      className="border rounded p-1"
+      className="border rounded p-1 bg-gray-50 bg-opacity-50"
     >
       <option value="All">All</option>
       <option value="Submitted">Submitted</option>
@@ -19,7 +19,7 @@ const Filter = ({statusFilter, setStatusFilter, filteredCompanies}) => {
       <option value="Rejected">Rejected</option>
       <option value="In Progress">In Progress</option>
     </select>
-    <span className="ml-3 text-gray-500 text-sm">Showing {filteredCompanies.length} companies</span>
+    <span className="ml-3 text-gray-200 text-sm">Showing {filteredCompanies.length} companies</span>
   </div>
   )
 }

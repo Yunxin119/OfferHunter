@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import SingleCompany from './SingleCompany';
 import { toast } from 'react-toastify'; 
-import { IoMdSearch, IoMdRefresh } from 'react-icons/io';
-import Search from '../Search';
 import Filter from './Filter';
 import FunctionalButtons from './FunctionalButtons';
+import { useAuth } from '../../hooks/AuthContext';
 
 const CompanyGrid = ({ companies, setCompanies }) => {
   const [loading, setLoading] = useState(false);
@@ -12,19 +11,45 @@ const CompanyGrid = ({ companies, setCompanies }) => {
   const [isReverse, setIsReverse] = useState(false);
   const [statusFilter, setStatusFilter] = useState('All');
   const [searchInput, setSearchInput] = useState('');
+  const { authUser } = useAuth();
+  const validCompanies = Array.isArray(companies) ? companies : [];
 
   useEffect(() => {
     const getCompanies = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/companies`);
-        const data = await response.json();
-        if (data.error) {
-          toast.error(data.error);
+        // Ensure the user is authenticated and has a token
+        if (!authUser || !authUser.token) {
+          toast.error('User is not authenticated.');
+          setLoading(false);
           return;
         }
-        setCompanies(data);
+
+        // Make the API call to fetch companies
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/companies`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${authUser.token}`,
+            'Content-Type': 'application/json', // Make sure the content type is set
+          },
+        });
+
+        // Check if the request was successful
+        if (response.status === 401) {
+          toast.error('Unauthorized: Please log in again.');
+          setLoading(false);
+          return;
+        }
+
+        // Handle success
+        const data = await response.json();
+        if (response.ok) {
+          setCompanies(data);
+        } else {
+          toast.error(data.message || 'Error fetching companies');
+        }
       } catch (error) {
+        console.error("Error fetching company:", error);
         toast.error("Error fetching company");
       } finally {
         setLoading(false);
@@ -32,10 +57,11 @@ const CompanyGrid = ({ companies, setCompanies }) => {
     };
 
     getCompanies();
-  }, [setCompanies]);
+  }, [setCompanies, authUser]);
+
 
   // Filter Feature
-  const filteredCompanies = companies
+  const filteredCompanies = validCompanies
   .sort((a, b) => {
     if (a.status === 'Rejected' && b.status !== 'Rejected') return 1;
     if (a.status !== 'Rejected' && b.status === 'Rejected') return -1;

@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { IoMdArrowDropright, IoMdArrowDropleft } from "react-icons/io";
+import { useAuth } from '../hooks/AuthContext';
 
 const Sidebar = ({ companies }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +11,9 @@ const Sidebar = ({ companies }) => {
         setIsOpen(false);
     }
 
-    const status = companies.map((company) => company.status);
+    const validCompanies = Array.isArray(companies) ? companies : [];
+
+    const status = validCompanies.map((company) => company.status);
     const oa = status.filter((s) => s === 'OA').length;
     const interview = status.filter((s) => s === 'Interview1').length + status.filter((s) => s === 'Interview2').length + status.filter((s) => s === 'Interview3').length;
     const rejected = status.filter((s) => s === 'Rejected').length;

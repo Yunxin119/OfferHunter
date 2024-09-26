@@ -48,8 +48,8 @@ const EditCompany = ({ company, setCompanies }) => {
 
       {/* Modal */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
-          <div className="bg-base-300 bg-opacity-80 w-full max-w-lg p-6 rounded-lg shadow-lg">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
+          <div className="edit">
             <h2 className="text-2xl font-bold mb-4">Edit Company</h2>
             <form onSubmit={handleEdit}>
               <div className="form-control">
@@ -64,7 +64,7 @@ const EditCompany = ({ company, setCompanies }) => {
                 />
               </div>
 
-              <div className="form-control mt-3">
+              <div className="form-control mt-1">
                 <label className="label">
                   <span className="label-text">Role</span>
                 </label>
@@ -75,38 +75,39 @@ const EditCompany = ({ company, setCompanies }) => {
                   onChange={(e) => setRole(e.target.value)}
                 />
               </div>
+              <div className='flex flex-row justify-between w-full'>
+                <div className="form-control mt-1 w-full">
+                  <label className="label">
+                    <span className="label-text">Status</span>
+                  </label>
+                  <select
+                    className="select select-bordered w-full"
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                  >
+                    <option value="Submitted">Submitted</option>
+                    <option value="OA">OA</option>
+                    <option value="Interview1">Interview Round 1</option>
+                    <option value="Interview2">Interview Round 2</option>
+                    <option value="Interview3">Interview Round 3</option>
+                    <option value="Rejected">Rejected</option>
+                  </select>
+                </div>
 
-              <div className="form-control mt-3">
-                <label className="label">
-                  <span className="label-text">Status</span>
-                </label>
-                <select
-                  className="select select-bordered w-full"
-                  value={status}
-                  onChange={(e) => setStatus(e.target.value)}
-                >
-                  <option value="Submitted">Submitted</option>
-                  <option value="OA">OA</option>
-                  <option value="Interview1">Interview Round 1</option>
-                  <option value="Interview2">Interview Round 2</option>
-                  <option value="Interview3">Interview Round 3</option>
-                  <option value="Rejected">Rejected</option>
-                </select>
+                <div className="form-control mt-1 w-full">
+                  <label className="label">
+                    <span className="label-text">Apply Date</span>
+                  </label>
+                  <input
+                    type="date"
+                    className="input input-bordered w-full"
+                    value={applyDate}
+                    onChange={(e) => setApplyDate(e.target.value)}
+                  />
+                </div>
               </div>
 
-              <div className="form-control mt-3">
-                <label className="label">
-                  <span className="label-text">Apply Date</span>
-                </label>
-                <input
-                  type="date"
-                  className="input input-bordered w-full"
-                  value={applyDate}
-                  onChange={(e) => setApplyDate(e.target.value)}
-                />
-              </div>
-
-              <div className="form-control mt-3">
+              <div className="form-control mt-1">
                 <label className="label">
                   <span className="label-text">City</span>
                 </label>
@@ -118,7 +119,7 @@ const EditCompany = ({ company, setCompanies }) => {
                 />
               </div>
 
-              <div className="form-control mt-3">
+              <div className="form-control mt-1">
                 <label className="label">
                   <span className="label-text">Link</span>
                 </label>
@@ -129,7 +130,7 @@ const EditCompany = ({ company, setCompanies }) => {
                   onChange={(e) => setLink(e.target.value)}
                 />
               </div>
-              <div className="form-control mt-3">
+              <div className="form-control mt-1">
                 <label className="label">
                   <span className="label-text">Domain</span>
                 </label>

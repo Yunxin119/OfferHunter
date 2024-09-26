@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useAuth } from './AuthContext';
 
 const useUpdateCompany = () => {
     const [loading, setLoading] = useState(false);
     const [updatedCompany, setUpdatedCompany] = useState(null); 
+    const { authUser } = useAuth();
 
     const updateCompany = async (companyId, updatedData) => {
         if (!companyId) {
@@ -17,6 +19,7 @@ const useUpdateCompany = () => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${authUser.token}`,
                 },
                 body: JSON.stringify(updatedData),
             });

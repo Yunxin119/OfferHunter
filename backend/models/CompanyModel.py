@@ -13,6 +13,8 @@ class Company(db.Model):
     updated_at = db.Column(db.DateTime, nullable=True)
     image_domain = db.Column(db.String(80), nullable=True)
 
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
     def to_json(self):
         return {
             'id': self.id,
@@ -24,5 +26,6 @@ class Company(db.Model):
             'applyDate': self.apply_date,
             'status': self.status,
             'updatedAt': self.updated_at.strftime('%m/%d/%Y')if self.updated_at else None,
-            'imageDomain': self.image_domain
+            'imageDomain': self.image_domain,
+            'user_id': self.user_id
         }

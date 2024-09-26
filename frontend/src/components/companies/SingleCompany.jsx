@@ -4,9 +4,11 @@ import  useUpdateCompany from '../../hooks/useUpdateCompany';
 import EditCompany from '../EditCompany';
 import { IoHandLeft } from 'react-icons/io5';
 import { toast } from 'react-toastify';
+import { useAuth } from '../../hooks/AuthContext';
 
 const SingleCompany = ({company, setCompanies}) => {
     const [loading ,setLoading] = useState(false);
+    const { authUser } = useAuth();
 
     const isSubmitted = company.status === 'Submitted';
     const isRejected = company.status === 'Rejected';
@@ -21,6 +23,10 @@ const SingleCompany = ({company, setCompanies}) => {
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/companies/${company.id}`, {
                 method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${authUser.token}`,
+                },
             });
             const data = await response.json();
             if (!response.ok) {
@@ -37,7 +43,7 @@ const SingleCompany = ({company, setCompanies}) => {
 
   return (
     <>
-    <div className='relative flex flex-col h-48 bg-base-200 bg-opacity-40 hover:bg-opacity-60 shadow-sm rounded-lg p-3'>
+    <div className='relative flex flex-col h-48 company-card bg-opacity-40 hover:bg-opacity-60 shadow-sm rounded-lg p-3'>
         <button 
         className='btn btn-sm btn-ghost absolute top-2 right-2 justify-end text-gray-500'
         onClick={handleDelete}
@@ -52,12 +58,12 @@ const SingleCompany = ({company, setCompanies}) => {
             />
             <div className="flex-1 truncate">
             <div className="flex items-center space-x-3">
-                <h3 className="truncate text-sm font-medium">{company.name}</h3>
+                <h3 className="prime-text truncate text-sm font-medium">{company.name}</h3>
                 <span className={`inline-flex flex-shrink-0 items-center rounded-full ${statusColor} px-1.5 py-0.5 text-xs font-medium  ring-1 ring-inset ring-green-600/20`}>
                     {company.status}
                 </span>
                 </div>
-                <p className="mt-1 truncate text-sm">{company.role}</p>
+                <p className="prime-text mt-1 truncate text-sm">{company.role}</p>
             </div>
             <EditCompany company={company} setCompanies={setCompanies} />
 
@@ -65,22 +71,22 @@ const SingleCompany = ({company, setCompanies}) => {
         <div className="flex flex-1 flex-col mx-3">
             <dl className="mx-2 flex flex-grow flex-col">
                 <div className='flex flex-row justify-between'> 
-                    <dt className='text-gray-400 text-sm'>Apply Date</dt>
-                    <dd className="text-sm">{company.applyDate}</dd>
+                    <dt className='sec-text text-sm'>Apply Date</dt>
+                    <dd className="text-sm prime-text">{company.applyDate}</dd>
                 </div>
                 <div className='flex flex-row justify-between'>
-                    <dt className='text-gray-400 text-sm'>Location</dt>
-                    <dd className="text-sm">{company.city}</dd>
+                    <dt className='sec-text text-sm'>Location</dt>
+                    <dd className="text-sm prime-text">{company.city}</dd>
                 </div>
                 <div className='flex flex-row justify-between'>
-                    <dt className='text-gray-400 text-sm'>Link</dt>
-                    <dd className="text-sm hover:text-gray-400">
+                    <dt className='sec-text text-sm'>Link</dt>
+                    <dd className="text-sm prime-text hover:text-gray-400">
                         <a href={company.link}>Click to redirect</a>
                     </dd>
                 </div>
                 <div className='flex flex-row justify-between'>
-                        <dt className='text-gray-400 text-sm'>Updated At:</dt>
-                        <dd className="text-sm">{company.updatedAt}</dd>
+                        <dt className='sec-text text-sm'>Updated At:</dt>
+                        <dd className="text-sm  prime-text">{company.updatedAt}</dd>
                     </div>
             </dl>
           </div>
