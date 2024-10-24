@@ -8,12 +8,16 @@ body {
 
 	background-size: cover;
 	background-position: center;
+    background-attachment: fixed;
+    overflow-x: hidden;
 }
 .dark body {
     background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("./assets/lightbg.jpg");
 
 	background-size: cover;
 	background-position: center;
+    background-attachment: fixed;
+    overflow-x: hidden;
 }
 
 .prime-text {
