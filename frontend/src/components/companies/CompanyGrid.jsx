@@ -77,7 +77,7 @@ const CompanyGrid = ({ companies, setCompanies }) => {
   const reversedCompanies = [...filteredCompanies].reverse();
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 min-h-[90vh]">
       <div className="flex flex-row justify-between items-center">
       {/* Filter Box */}
       <Filter 

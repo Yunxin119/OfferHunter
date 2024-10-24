@@ -17,7 +17,7 @@ const Navbar = ({setCompanies}) => {
     await logout();
   }
   return (
-<div className="navbar bg-transparent">
+<div className="navbar bg-transparent h-[10vh]">
   <div className="navbar-start">
   <AddCompany setCompanies={setCompanies}/>
   < EditProfile />

@@ -77,7 +77,7 @@ const Register = () => {
                 {/* No Account? */}
                 <div className='prime-text p-2 items-center justify-center'>
                     Already Have an Account?
-                     <Link to = {'/signup'} className='hover:text-sky-500'> Log in Here! </Link>
+                     <Link to = {'/login'} className='hover:text-sky-500'> Log in Here! </Link>
                 </div>
                 {/* Log In Button */}
                 <button 
@@ -86,7 +86,6 @@ const Register = () => {
                     onClick={submitHandler}
                     disabled={loading}
                 >
-                    Register
                     {loading ? (
                         <span className="loading loading-spinner"></span>
                     ) : (
